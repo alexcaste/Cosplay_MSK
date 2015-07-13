@@ -48,6 +48,10 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
+  def vote
+
+  end
+
   private
   def question_params
     params.require(:question).permit!

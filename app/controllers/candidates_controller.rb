@@ -46,6 +46,6 @@ class CandidatesController < ApplicationController
 
   private
     def candidate_params
-      params.require(:candidate).permit(:name, :image_path, :marry_score, :screw_score, :kill_score, :question_id, :user_id)
+      params.require(:candidate).permit(:name, :avatar, :marry_score, :screw_score, :kill_score, :question_id, :user_id)
     end
 end

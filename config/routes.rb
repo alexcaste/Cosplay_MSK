@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
 
   resources :questions do
+    post :vote, on: :member
     resources :comments, except: ["index", "show"]
   end
 

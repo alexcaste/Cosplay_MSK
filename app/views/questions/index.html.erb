@@ -1,6 +1,43 @@
 <h1>Questions</h1>
-<ul>
   <% @questions.each do |question| %>
-    <li><%= link_to question.name, question_path(question) %></li>
+    <div class="panel panel-default">
+      <% if question.name %>
+        <div class="panel-header">
+          <%= link_to question.name, question_path(question) %>
+        </div>
+      <% end %>
+      <div class="panel-body">
+        <%= bootstrap_form_for(question) do |f| %>
+
+          <% times = 0 %>
+          <% question.candidates.each do |candidate| %>
+            <div class="col-md-4 panel panel-default">
+              <div class="text-center">
+                <p><%= candidate.name %></p>
+                <%= image_tag candidate.avatar.url(:medium) %>
+              </div>
+              <div class="panel-footer">
+                <div class="btn-group-sm">
+
+                  <%= f.form_group "vote_#{times}" do %>
+                      <div class="btn btn-success">
+                        <%= f.radio_button "vote_#{times}", 0, label: "Marry" %>
+                      </div>
+                      <div class="btn btn-warning">
+                        <%= f.radio_button "vote_#{times}", 1, label: "Screw" %>
+                      </div>
+                      <div class="btn btn-danger">
+                        <%= f.radio_button "vote_#{times}", 2, label: "Kill" %>
+                      </div>
+
+                    <% end %>
+                </div>
+              </div>
+            </div>
+            <% times += 1 %>
+          <% end %>
+          <%= f.submit data: {disable_with: "Voting"}, class: "btn btn-success btn-block" %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
-</ul>

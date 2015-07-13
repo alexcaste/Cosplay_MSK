@@ -1,6 +1,6 @@
 <h1>Candidates</h1>
 <ul>
   <% @candidates.each do |candidate| %>
-    <li><%= candidate.name %></li>
+    <li><%= link_to candidate.name, candidate_path(candidate) %></li>
   <% end %>
 </ul>
