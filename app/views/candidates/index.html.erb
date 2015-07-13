@@ -1,5 +1,6 @@
 <h1>Candidates</h1>
-
-<% @candidates.each do |candidate| %>
-  <%= @candidate.name %>
-<% end %>
+<ul>
+  <% @candidates.each do |candidate| %>
+    <li><%= candidate.name %></li>
+  <% end %>
+</ul>

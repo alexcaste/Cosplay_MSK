@@ -1,0 +1,9 @@
+<%= render 'layouts/errors', object: @question %>
+
+<%= bootstrap_form_for(@question) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.collection_check_boxes(:candidate_ids, @candidates, :id, :name) %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit data: {disable_with: "Questioning....."}, class: "btn btn-success btn-block" %>
+<% end %>
