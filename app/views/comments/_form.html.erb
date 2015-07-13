@@ -1,0 +1,7 @@
+<%= render 'layouts/errors', object: @comment %>
+
+<%= bootstrap_form_for([@question, @comment]) do |f| %>
+  <%= f.text_field :body %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.submit data: {disable_with: "Commenting..."}, class: "btn btn-success btn-block" %>
+<% end %>

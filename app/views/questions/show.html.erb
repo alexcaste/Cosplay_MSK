@@ -8,3 +8,11 @@
       <li><%= link_to candidate.name, candidate_path(candidate) %></li>
     <% end %>
 </ul>
+
+<hr>
+<%= link_to "Add Comment", new_question_comment_path(@question), class: "btn btn-block btn-success" %>
+<ul>
+    <% @question.comments.each do |comment| %>
+      <li><%= comment.body %> </li>
+    <% end %>
+</ul>
