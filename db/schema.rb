@@ -11,10 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713164009) do
+ActiveRecord::Schema.define(version: 20150713170512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "candidates", force: :cascade do |t|
+    t.string   "name"
+    t.string   "image_path"
+    t.integer  "marry_score", default: 0
+    t.integer  "screw_score", default: 0
+    t.integer  "kill_score",  default: 0
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "candidates", ["question_id"], name: "index_candidates_on_question_id", using: :btree
+  add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
