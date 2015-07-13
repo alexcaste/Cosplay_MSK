@@ -7,7 +7,7 @@
         </div>
       <% end %>
       <div class="panel-body">
-        <%= bootstrap_form_for(question) do |f| %>
+        <%= bootstrap_form_tag url: vote_question_path(question) do |f| %>
 
           <% times = 0 %>
           <% question.candidates.each do |candidate| %>
@@ -36,7 +36,7 @@
             </div>
             <% times += 1 %>
           <% end %>
-          <%= f.submit data: {disable_with: "Voting"}, class: "btn btn-success btn-block" %>
+          <%= f.submit "Vote", data: {disable_with: "Voting"}, class: "btn btn-success btn-block" %>
         <% end %>
       </div>
     </div>

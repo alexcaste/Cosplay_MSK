@@ -49,6 +49,12 @@ class QuestionsController < ApplicationController
   end
 
   def vote
+    @question = Question.find(params[:id])
+    binding.pry
+
+    @question.count_vote(params[:vote_0], @question.candidates[0])
+    @question.count_vote(params[:vote_1], @question.candidates[1])
+    @question.count_vote(params[:vote_2], @question.candidates[2])
 
   end
 
