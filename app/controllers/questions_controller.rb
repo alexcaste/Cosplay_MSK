@@ -14,9 +14,13 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    @candidates = Candidate.all
     @question = Question.new(question_params)
-    if @question.save
-      flash[:alert] = "Question Added"
+    if @question.candidates.length != 3
+      flash[:alert] = "A question must contain exactly 3 candidates"
+      render :new
+    elsif @question.save
+      flash[:notice] = "Question Added"
       redirect_to question_path(@question)
     else
       render :new
