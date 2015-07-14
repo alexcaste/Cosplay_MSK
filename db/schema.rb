@@ -11,16 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150714182021) do
+ActiveRecord::Schema.define(version: 20150714211319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "candidates", force: :cascade do |t|
     t.string   "name"
-    t.integer  "marry_score",         default: 0
-    t.integer  "screw_score",         default: 0
-    t.integer  "kill_score",          default: 0
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150714182021) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.integer  "votes",               default: 0
   end
 
   add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
@@ -54,9 +52,8 @@ ActiveRecord::Schema.define(version: 20150714182021) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "vote_0"
-    t.integer  "vote_1"
-    t.integer  "vote_2"
+    t.integer  "vote_1",      default: 0
+    t.integer  "vote_2",      default: 0
   end
 
   create_table "users", force: :cascade do |t|

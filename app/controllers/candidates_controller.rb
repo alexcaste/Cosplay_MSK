@@ -44,6 +44,7 @@ class CandidatesController < ApplicationController
     redirect_to candidates_path
   end
 
+
   private
     def candidate_params
       params.require(:candidate).permit(:name, :avatar, :marry_score, :screw_score, :kill_score, :question_id, :user_id)

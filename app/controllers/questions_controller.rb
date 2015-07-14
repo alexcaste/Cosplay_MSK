@@ -17,10 +17,7 @@ class QuestionsController < ApplicationController
   def create
     @candidates = Candidate.all
     @question = Question.new(question_params)
-    if @question.candidates.length != 3
-      flash[:alert] = "A question must contain exactly 3 candidates"
-      render :new
-    elsif @question.save
+    if @question.save
       flash[:notice] = "Question Added"
       redirect_to question_path(@question)
     else
@@ -51,6 +48,24 @@ class QuestionsController < ApplicationController
 
   def vote
     @question = Question.find(params[:id])
+    @candidate = Candidate.find(params[:id])
+    @candidate.votes +=1
+    @candidate.save
+    if params[:option] == "vote_1"
+      @question.vote_1 +=1
+      @question.save
+      flash[:notice] = "You have voted for #{@candidate.name}"
+    else
+      @question.vote_2 +=1
+      @question.save
+      flash[:notice] = "You have voted for #{@candidate.name}"
+    end
+    binding.pry
+    redirect_to questions_path
+  end
+
+  def voter
+    @question = Question.find(params[:id])
     check = @question.vote_check(params[:vote_0], params[:vote_1], params[:vote_2])
     if check == 0
       flash[:alert] = "Please try again.  You must choose one candidate for each category."
@@ -67,6 +82,6 @@ class QuestionsController < ApplicationController
   private
   def question_params
     #params.require(:question).permit!
-    params.require(:question).permit(:name, :description, {:candidate_ids => []}, :user_id)
+    params.require(:question).permit(:name, :description, {:candidate_ids => []}, :user_id, :avatar)
   end
 end
