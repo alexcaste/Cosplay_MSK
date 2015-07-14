@@ -13,6 +13,12 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def get_candidates (question)
+    candidate_1 = Candidate.find(question.candidate_1)
+    candidate_2 = Candidate.find(question.candidate_2)
+    return [candidate_1,candidate_2]
+  end
+
   def count_vote (vote, candidate)
     if vote == "0"
       candidate.update(marry_score: candidate.marry_score + 1)

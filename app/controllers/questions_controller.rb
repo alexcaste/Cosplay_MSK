@@ -17,6 +17,8 @@ class QuestionsController < ApplicationController
   def create
     @candidates = Candidate.all
     @question = Question.new(question_params)
+    @question.candidate_1 = question_params[:candidate_ids].second
+    @question.candidate_2 = question_params[:candidate_ids].third
     if @question.save
       flash[:notice] = "Question Added"
       redirect_to question_path(@question)
@@ -48,19 +50,20 @@ class QuestionsController < ApplicationController
 
   def vote
     @question = Question.find(params[:id])
-    @candidate = Candidate.find(params[:id])
+    @candidate = Candidate.find(params[:candidate_id])
     @candidate.votes +=1
     @candidate.save
-    if params[:option] == "vote_1"
+    if params[:option] == "vote_0"
+      @question.vote_0 +=1
+      @question.save
+      flash[:notice] = "You have voted for #{@candidate.name}"
+    elsif params[:option] == "vote_1"
       @question.vote_1 +=1
       @question.save
       flash[:notice] = "You have voted for #{@candidate.name}"
     else
-      @question.vote_2 +=1
-      @question.save
-      flash[:notice] = "You have voted for #{@candidate.name}"
+      flash[:notice] = "Incorrect"
     end
-    binding.pry
     redirect_to questions_path
   end
 
@@ -82,6 +85,6 @@ class QuestionsController < ApplicationController
   private
   def question_params
     #params.require(:question).permit!
-    params.require(:question).permit(:name, :description, {:candidate_ids => []}, :user_id, :avatar)
+    params.require(:question).permit(:name, :description, {:candidate_ids => []}, :user_id, :avatar, :candidate_1, :candidate_2)
   end
 end

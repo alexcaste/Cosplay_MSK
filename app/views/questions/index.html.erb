@@ -7,22 +7,26 @@
       </div>
     <% end %>
     <div class="panel-body">
-      <%= bootstrap_form_for new_question_path(question) do |f| %>
-        <% times = 0 %>
-          <% question.candidates.each do |candidate| %>
-            <%= link_to vote_question_path(question, :option => "vote_#{times}") do %>
-              <div class="col-md-6 panel panel-default">
-                <div class="text-center">
-                  <p><%= candidate.name %></p>
-                  <%= image_tag candidate.avatar.url(:medium) %>
-                </div>
-              </div>
+        <div class="col-md-6 panel panel-default">
+          <div class="text-center">
+            <% @candidates = question.get_candidates(question) %>
+            <% candidate_1 = @candidates[0] %>
+            <p><%= candidate_1.name %></p>
+            <%= link_to  vote_question_path(question, candidate_1, :option => "vote_0", :candidate_id => "#{candidate_1.id}") do%>
+              <%= image_tag candidate_1.avatar.url(:medium) %>
             <% end %>
-          <% times += 1 %>
-        <% end %>
-      <% end %>
+          </div>
+        </div>
+        <div class="col-md-6 panel panel-default">
+          <div class="text-center">
+            <% candidate_2 = @candidates[1] %>
+            <p><%= candidate_2.name %></p>
+            <%= link_to  vote_question_path(question, candidate_2, :option => "vote_1", :candidate_id => "#{candidate_2.id}") do%>
+              <%= image_tag candidate_2.avatar.url(:medium) %>
+            <% end %>
+          </div>
+        </div>
     </div>
-  </div>
       <br>
       <div>
         <% if can? :update, @question %>
@@ -32,4 +36,6 @@
         <%= link_to "Delete Question", question_path(question), :data => {:confirm => "Are you sure?", :method => "delete"}, :class => "btn btn-danger btn-block btn-xs" %>
         <% end %>
       </div>
+  </div>
+
 <% end %>
