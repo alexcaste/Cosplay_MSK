@@ -12,18 +12,24 @@
             <% @candidates = question.get_candidates(question) %>
             <% candidate_1 = @candidates[0] %>
             <p><%= candidate_1.name %></p>
-            <%= link_to  vote_question_path(question, candidate_1, :option => "vote_0", :candidate_id => "#{candidate_1.id}") do%>
+            <%= link_to vote_question_path(question, :option => "vote_0", :candidate_id => "#{candidate_1.id}"), remote: true do %>
               <%= image_tag candidate_1.avatar.url(:medium) %>
             <% end %>
           </div>
+            <span id="vote_<%= candidate_1.id %>">
+              Votes:<%= candidate_1.votes  %>
+            </span>
+
         </div>
         <div class="col-md-6 panel panel-default">
           <div class="text-center">
             <% candidate_2 = @candidates[1] %>
             <p><%= candidate_2.name %></p>
-            <%= link_to  vote_question_path(question, candidate_2, :option => "vote_1", :candidate_id => "#{candidate_2.id}") do%>
+            <%= link_to  vote_question_path(question, candidate_2, :option => "vote_1", :candidate_id => "#{candidate_2.id}"), remote: true do%>
               <%= image_tag candidate_2.avatar.url(:medium) %>
             <% end %>
+            Votes:<%= candidate_2.votes  %>
+
           </div>
         </div>
     </div>

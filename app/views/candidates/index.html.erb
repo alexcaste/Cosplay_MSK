@@ -1,6 +1,15 @@
 <h1>Candidates</h1>
-<ul>
-  <% @candidates.each do |candidate| %>
-    <li><%= link_to candidate.name, candidate_path(candidate) %></li>
-  <% end %>
-</ul>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% @candidates.each do |candidate| %>
+        <div class="col-md-4 panel panel-default">
+          <div class="text-center">
+            <p class="lead"><%= candidate.name %> </p>
+            <%= link_to candidate_path(candidate) do %>
+            <%= image_tag candidate.avatar.url(:medium) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>

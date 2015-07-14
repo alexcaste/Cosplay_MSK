@@ -3,3 +3,10 @@
 <h3><%= @candidate.name %></h3>
 
 <%= image_tag @candidate.avatar.url(:medium) %>
+<br>
+
+Votes = <%= @candidate.votes %>
+
+<% creator = User.find(@candidate.user_id) %>
+<br>
+Created by: <%= creator.email %>
