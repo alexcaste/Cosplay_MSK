@@ -50,17 +50,22 @@ class QuestionsController < ApplicationController
 
   def vote
     @question = Question.find(params[:id])
-    binding.pry
-
-    @question.count_vote(params[:vote_0], @question.candidates[0])
-    @question.count_vote(params[:vote_1], @question.candidates[1])
-    @question.count_vote(params[:vote_2], @question.candidates[2])
-
+    check = @question.vote_check(params[:vote_0], params[:vote_1], params[:vote_2])
+    if check == 0
+      flash[:alert] = "Please try again.  You must choose one candidate for each category."
+    elsif check == 1
+      flash[:alert] = "Please try again.  You may only vote for once for each category."
+    else
+      @question.count_vote(params[:vote_0], @question.candidates[0])
+      @question.count_vote(params[:vote_1], @question.candidates[1])
+      @question.count_vote(params[:vote_2], @question.candidates[2])
+    end
+    redirect_to questions_path
   end
 
   private
   def question_params
-    params.require(:question).permit!
-    # params.require(:question).permit(:name, :description, :candidate_ids, :user_id)
+    #params.require(:question).permit!
+    params.require(:question).permit(:name, :description, {:candidate_ids => []}, :user_id)
   end
 end

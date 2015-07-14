@@ -1,4 +1,5 @@
-<h1>Questions</h1>
+<h1>Marry, Screw or Kill</h1>
+<p>Choose who you would marry, screw or kill from the 3 choices.  </p>
   <% @questions.each do |question| %>
     <div class="panel panel-default">
       <% if question.name %>
@@ -38,6 +39,8 @@
           <% end %>
           <%= f.submit "Vote", data: {disable_with: "Voting"}, class: "btn btn-success btn-block" %>
         <% end %>
+        <%= link_to "Delete", question_path(question), :data => {:confirm => "Are you sure?", :method => "delete"}, :class => "btn btn-danger" %>
+        <%= link_to "show", question_path(question) %>
       </div>
     </div>
   <% end %>

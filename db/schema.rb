@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713222900) do
+ActiveRecord::Schema.define(version: 20150714171619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20150713222900) do
     t.integer  "marry_score",         default: 0
     t.integer  "screw_score",         default: 0
     t.integer  "kill_score",          default: 0
-    t.integer  "question_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -31,8 +30,15 @@ ActiveRecord::Schema.define(version: 20150713222900) do
     t.datetime "avatar_updated_at"
   end
 
-  add_index "candidates", ["question_id"], name: "index_candidates_on_question_id", using: :btree
   add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
+
+  create_table "candidates_questions", id: false, force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "candidate_id"
+  end
+
+  add_index "candidates_questions", ["candidate_id"], name: "index_candidates_questions_on_candidate_id", using: :btree
+  add_index "candidates_questions", ["question_id"], name: "index_candidates_questions_on_question_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
