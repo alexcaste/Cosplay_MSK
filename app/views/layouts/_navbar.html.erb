@@ -22,15 +22,16 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-            <!-- <li>
+        <% if current_user.admin %>
+            <li>
               <a class="btn btn-danger disabled">
                 Admin Status
               </a>
-            </li> -->
+            </li>
             <li>
               <a href="/users" >Users</a>
             </li>
-
+          <% end %>
         <li><%= link_to "Back", :back%></li>
 
         <li class="dropdown">

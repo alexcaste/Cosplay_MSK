@@ -5,6 +5,7 @@
 
     <%= f.email_field :email, autofocus: true %>
     <%= f.file_field :avatar %>
+    <%= f.check_box :admin, value: true, label: "Check for Admin Status (placed here temporarily)" %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

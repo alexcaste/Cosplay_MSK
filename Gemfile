@@ -13,6 +13,7 @@ gem 'bootstrap_form'
 gem 'devise'
 gem 'bootswatch-rails'
 gem 'paperclip'
+gem 'cancancan'
 
 
 
