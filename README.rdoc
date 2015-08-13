@@ -1,28 +1,52 @@
-== README
+= Who Wore the Cosplay Better
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a voting app where users can upload photos and pit two cosplayer pictures against each other.  Basically, a hot or not for cosplay.  
 
-Things you may want to cover:
+This app is only partially finished.  Voting system still has bugs, styling is not to my liking, additional seeds need to be made and app layout needs to be simplified.
 
-* Ruby version
+Current seed is not admin.  Can convert to admin status by going to edit profile screen and checking admin. 
 
-* System dependencies
+This app uses Ruby with Rails, Javascript, CSS & HTML.
 
-* Configuration
+== Requirements:
 
-* Database creation
+Ruby > 2.0
+Rails Gem > 4.0
+Bundler Gem
+Postgresql Database
+Configuration:
 
-* Database initialization
+To create this app on your own system follow the prompts below
 
-* How to run the test suite
+Start Postgres
 
-* Services (job queues, cache servers, search engines, etc.)
+Run Terminal Commands
 
-* Deployment instructions
+$ https://github.com/alexcaste/epicodus-portfolio.git
 
-* ...
+$ bundler install
+
+$ rake db:create
+
+$ rake db:migrate
+
+$ rake db:seed
+
+$ rails s
+
+Open a browser window and navigate to localhost:3000
+
+== Testing:
+
+This app uses rspec and cabybara for unit and integration testing. To see the results of these tests follow the Configuration Instructions above except for running the rails server. Then run terminal command: $ rspec
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+==Copyright and License
+
+Copyright © 2015 - Alexandar Castaneda
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. The name of the original author (Steve Bussert) may not be used to endorse or promote products derived from this software without specific prior written permission.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
