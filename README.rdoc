@@ -22,7 +22,7 @@ Start Postgres
 
 Run Terminal Commands
 
-$ https://github.com/alexcaste/epicodus-portfolio.git
+$ https://github.com/alexcaste/who_did_it_better.git
 
 $ bundler install
 
