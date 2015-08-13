@@ -1,53 +1,47 @@
-<h1>Marry, Screw or Kill</h1>
-<p>Choose who you would marry, screw or kill from the 3 choices.  </p>
-  <% @questions.each do |question| %>
-    <div class="panel panel-default">
-      <% if question.name %>
-        <div class="panel-header">
-          <%= link_to question.name, question_path(question) %>
-        </div>
-      <% end %>
-      <div class="panel-body">
-        <%= bootstrap_form_tag url: vote_question_path(question) do |f| %>
-
-          <% times = 0 %>
-          <% question.candidates.each do |candidate| %>
-            <div class="col-md-4 panel panel-default">
-              <div class="text-center">
-                <p><%= candidate.name %></p>
-                <%= image_tag candidate.avatar.url(:medium) %>
-              </div>
-              <div class="panel-footer">
-                <div class="btn-group-sm">
-
-                  <%= f.form_group "vote_#{times}" do %>
-                      <div class="btn btn-success">
-                        <%= f.radio_button "vote_#{times}", 0, label: "Marry" %>
-                      </div>
-                      <div class="btn btn-warning">
-                        <%= f.radio_button "vote_#{times}", 1, label: "Screw" %>
-                      </div>
-                      <div class="btn btn-danger">
-                        <%= f.radio_button "vote_#{times}", 2, label: "Kill" %>
-                      </div>
-
-                    <% end %>
-                </div>
-              </div>
-            </div>
-            <% times += 1 %>
-          <% end %>
-          <%= f.submit "Vote", data: {disable_with: "Voting"}, class: "btn btn-success btn-block" %>
-        <% end %>
-        <br>
-        <div>
-          <% if can? :update, @question %>
-          <%= link_to "Edit Question", edit_question_path(question), class: "btn btn-info btn-block btn-xs" %>
-          <% end %>
-          <% if can? :destroy, @question %>
-          <%= link_to "Delete Question", question_path(question), :data => {:confirm => "Are you sure?", :method => "delete"}, :class => "btn btn-danger btn-block btn-xs" %>
-          <% end %>
-        </div>
+<h1>Who wore it better?</h1>
+<% @questions.each do |question| %>
+  <div class="panel panel-default">
+    <% if question.name %>
+      <div class="panel-header">
+        <%= link_to question.name, question_path(question) %>
       </div>
+    <% end %>
+    <div class="panel-body">
+        <div class="col-md-6 panel panel-default">
+          <div class="text-center">
+            <% @candidates = question.get_candidates(question) %>
+            <% candidate_1 = @candidates[0] %>
+            <p><%= candidate_1.name %></p>
+            <%= link_to vote_question_path(question, :option => "vote_0", :candidate_id => "#{candidate_1.id}"), remote: true do %>
+              <%= image_tag candidate_1.avatar.url(:medium) %>
+            <% end %>
+          </div>
+            <span id="vote_<%= candidate_1.id %>">
+              Votes:<%= candidate_1.votes  %>
+            </span>
+
+        </div>
+        <div class="col-md-6 panel panel-default">
+          <div class="text-center">
+            <% candidate_2 = @candidates[1] %>
+            <p><%= candidate_2.name %></p>
+            <%= link_to  vote_question_path(question, candidate_2, :option => "vote_1", :candidate_id => "#{candidate_2.id}"), remote: true do%>
+              <%= image_tag candidate_2.avatar.url(:medium) %>
+            <% end %>
+            Votes:<%= candidate_2.votes  %>
+
+          </div>
+        </div>
     </div>
-  <% end %>
+      <br>
+      <div>
+        <% if can? :update, @question %>
+        <%= link_to "Edit Question", edit_question_path(question), class: "btn btn-info btn-block btn-xs" %>
+        <% end %>
+        <% if can? :destroy, @question %>
+        <%= link_to "Delete Question", question_path(question), :data => {:confirm => "Are you sure?", :method => "delete"}, :class => "btn btn-danger btn-block btn-xs" %>
+        <% end %>
+      </div>
+  </div>
+
+<% end %>
